@@ -8,7 +8,9 @@
   <a data-sveltekit-prefetch class="title" href="/posts/{slug}"
     ><h2>{title ?? location ?? ""}</h2></a>
   <Categories {categories} />
-  {#if thumbnail}<img width="800" height="300" src={thumbnail} alt={title} />{/if}
+  {#if thumbnail}<div width="800" height="300">
+	<img src={thumbnail} alt={title} id="thumbnail" />
+  </div>{/if}
   {#if description}<p>{description ?? ""}</p>{/if}
 </div>
 
@@ -30,6 +32,13 @@
     object-fit: cover;
     object-position: center;
   }
+
+  #thumbnail{
+	margin: auto;
+	display: block;
+	border-radius: 15px;
+  }
+
   @media screen and (max-width: 768px) {
     img {
       height: 200px;

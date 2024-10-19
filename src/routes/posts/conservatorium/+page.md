@@ -5,6 +5,7 @@ description:
 categories:
   - parkville
   - grand
+  - student card with permission
 date: 15/10/2024
 location: conservatorium
 floor: 1
@@ -16,5 +17,10 @@ images:
 # The best grand on Parkville.
 
 Excluding those in Melba hall.
+
+### Requirements
+
+To enter the Conservatorium, you need a *student card with access rights*
+or some other way to enter (preferably with permission).
 
 ---
