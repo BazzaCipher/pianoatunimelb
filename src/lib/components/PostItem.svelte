@@ -9,7 +9,7 @@
     ><h2>{title ?? location ?? ""}</h2></a>
   <Categories {categories} />
   {#if thumbnail}<div width="800" height="300">
-	<img src={thumbnail} alt={title} id="thumbnail" />
+	<img src="{thumbnail}" alt="{title}" id="thumbnail" />
   </div>{/if}
   {#if description}<p>{description ?? ""}</p>{/if}
 </div>
@@ -28,15 +28,13 @@
     font-size: 1.8rem;
 	text-transform: capitalize;
   }
-  img {
-    object-fit: cover;
-    object-position: center;
-  }
 
   #thumbnail{
 	margin: auto;
 	display: block;
 	border-radius: 15px;
+    object-fit: cover;
+    object-position: center;
   }
 
   @media screen and (max-width: 768px) {

@@ -57,7 +57,7 @@
 	display: inline-block;
   }
 
-  @media only screen and (max-width: 600px) {
+  @media screen and (max-aspect-ratio: 1/1.25) {
     #map-container {
       width: 100vw;
 	  aspect-ratio: 16 / 9;

@@ -5,13 +5,13 @@
   let map;
 
   async function createMap() {
-	let isMobile = window.innerWidth <= 800;
+	let isVertical = window.innerWidth !== 0 ? window.innerHeight / window.innerWidth <= 1.25 : true;
     // Create the map centred on Melbourne Uni
-	console.log(isMobile)
-	map = L.map('map')
+	console.log(isVertical)
+	map = L.map('map', {fullscreenControl: true})
 		.setView(
-			!isMobile ? [-37.798, 144.9615] : [-37.800, 144.98]
-			, !isMobile ? 15.5 : 15)
+			!isVertical ? [-37.798, 144.9615] : [-37.800, 144.98]
+			, !isVertical ? 15.5 : 15)
 	L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 	  attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>💖contributors'
 	}).addTo(map);
@@ -91,6 +91,10 @@
   onMount(createMap);
 </script>
 
+<svelte:head>
+<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
+<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
+</svelte:head>
 <div id="map">
   <slot />
 </div>
@@ -107,7 +111,7 @@
 	top: 30vh;
   }
 
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-aspect-ratio: 1/1.25) {
 	#map {
 	  position: relative;
 	  aspect-ratio: 16 / 9;
