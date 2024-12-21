@@ -77,6 +77,9 @@
 			.on('mouseup', () => {goto(`/posts/${post.slug}`)})}
 	}
 
+	// Hide skeleton image
+	onMount(()=>{document.getElementById("leaflet-skeleton-image").style.display = "none"})
+
 	function markFeature(feature) {
 		let lengthofarr = feature.item.geometry.coordinates[0].length;
 		return [feature.item.geometry.coordinates[0].reduce((acc, val) => acc + val[1], 0)/lengthofarr,
@@ -88,7 +91,11 @@
 	}
   }
 
-  onMount(createMap);
+  onMount(()=>setTimeout(createMap, 200));
+  onMount(()=>setTimeout(()=>{document.getElementById("map").style.visibility = "visible"}, 150))
+
+  let visible = false
+  setTimeout(() => visible = true, 150);
 </script>
 
 <svelte:head>
@@ -96,9 +103,11 @@
 <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
 </svelte:head>
 
+{#if visible}
 <div id="map" transition:fade={{duration:2000}}>
   <slot />
 </div>
+{/if}
 
 <style>
   #map {
