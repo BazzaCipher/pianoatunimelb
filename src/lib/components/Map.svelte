@@ -1,18 +1,17 @@
 <script>
   import { onMount } from 'svelte';
+  import { goto } from '$app/navigation';
   import createFuzzySearch from '@nozbe/microfuzz';
   import { fade } from 'svelte/transition';
   export let posts;
   let map;
 
   async function createMap() {
-	let isVertical = window.innerWidth !== 0 ? window.innerHeight / window.innerWidth <= 1.25 : true;
     // Create the map centred on Melbourne Uni
-	console.log(isVertical)
 	map = L.map('map', {fullscreenControl: true})
 		.setView(
-			!isVertical ? [-37.798, 144.9615] : [-37.800, 144.98]
-			, !isVertical ? 15.5 : 15)
+			[-37.798, 144.9615]
+			, 15.5)
 	L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 	  attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>💖contributors'
 	}).addTo(map);
@@ -75,7 +74,7 @@
 				opacity: post.categories.includes("sus") ? 0.5: 1.0
 			})
 			.addTo(map)
-			.on('mouseup', () => window.location.href = `/posts/${post.slug}`); }
+			.on('mouseup', () => {goto(`/posts/${post.slug}`)})}
 	}
 
 	// Hide skeleton image
