@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Pianos
-description: "Pianos at Unimelb"
+description: "Explore all the pianos on the University of Melbourne campus for practice and pleasure. Find locations, availability, and details in one comprehensive guide. Find the pianos at unimelb"
 ---
 
 <script>

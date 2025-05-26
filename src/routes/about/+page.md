@@ -1,11 +1,18 @@
 ---
 layout: page
-title: About
-description: Yuyutsu was the only son of Dhritarashtra who survived the Kurukshetra war.
+title: About Us
+description: We list piano locations for you
 ---
 
-Yuyutsu was the only son of Dhritarashtra who survived the Kurukshetra war.
+Welcome to the University of Pianos at Unimelb, the University of
+Melbourne Piano Locator - your guide for finding every playable piano across campus!
 
-<a target="_blank" href="https://github.com/sharu725/yuyutsu">
-<button>Star this project</button>
+
+Whether you're sneaking in a quick practice or just want to enjoy a spot of music
+our interactive map shows all the pianos we know of, with a quick summary of what
+makes each one unique. Built by students, for students (and anyone who loves a good piano break).
+
+<a target="_blank" href="https://github.com/BazzaCipher/pianoatunimelb">
+<button>⭐Star this project⭐</button>
 </a>
+

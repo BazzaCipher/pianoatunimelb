@@ -6,6 +6,7 @@
   import { page } from "$app/stores"
   import Header from "$lib/components/Header.svelte";
   import Map from "$lib/components/Map.svelte";
+  import CalltoAction from "$lib/components/CalltoAction.svelte";
 
   export let data;
   $: dynamicClass = $page.url.pathname == "/" ? 'displayInline': '';
@@ -18,11 +19,12 @@
     <SidebarToggle />
     <Header />
 	{#if $page.url.pathname=="/"}
+		<CalltoAction />
 		<div id="map-container">
 			<Map {posts}/>
 		</div>
 	{/if}
-      <div class="container {dynamicClass}">
+      <div class="container {dynamicClass}" id="checkedinlineelement">
 		<slot />
       </div>
   </main>
