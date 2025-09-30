@@ -5,11 +5,10 @@
   import { isSidebarOpen } from "$lib/stores";
   import { page } from "$app/stores"
   import Header from "$lib/components/Header.svelte";
-  import Map from "$lib/components/Map.svelte";
   import CalltoAction from "$lib/components/CalltoAction.svelte";
 
   export let data;
-  $: dynamicClass = $page.url.pathname == "/" ? 'displayInline': '';
+  $: dynamicClass = $page.url.pathname == "/" ? 'displayInline': 'displayOther';
   $: ({ posts } = data);
 </script>
 
@@ -18,15 +17,10 @@
   <main class:show={$isSidebarOpen}>
     <SidebarToggle />
     <Header />
-	{#if $page.url.pathname=="/"}
-		<CalltoAction />
-		<div id="map-container">
-			<Map {posts}/>
-		</div>
-	{/if}
-      <div class="container {dynamicClass}" id="checkedinlineelement">
+	<CalltoAction />
+	<div class="container {dynamicClass}" id="checkedinlineelement">
 		<slot />
-      </div>
+	</div>
   </main>
 </div>
 
@@ -41,34 +35,16 @@
   }
 
   .container {
-    margin: 2rem auto;
+	margin: 0;
+	padding: 0;
   }
 
   .displayInline {
-    display: inline-block;
+    display: inline;
   }
 
-  #map-container {
-    top: 0;
-	vertical-align: top;
-
-	margin: 10em 3em;
-
-	width: 400px;
-	height: 80%;
-	display: inline-block;
+  .displayOther {
+    margin: 2rem auto;
   }
 
-  @media screen and (max-aspect-ratio: 1/1.25) {
-    #map-container {
-      width: 100vw;
-	  aspect-ratio: 16 / 9;
-
-	  border: 10em 0 5em 0;
-	  display: inline;
-	}
-	.container {
-	  margin: 0 auto;
-	}
-  }
 </style>

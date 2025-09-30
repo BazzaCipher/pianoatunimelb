@@ -5,11 +5,19 @@
   const seo = {
     title: `${title} | ${siteTitle}`,
     description,
+	canonical: 'https://piano.bazza.space'
   };
 </script>
 
 <Seo {...seo} />
-<h1>{title}</h1>
+<h3 id="smalltitle">{title}</h3>
+<hr>
 <div>
-  <slot />
+	<slot />
 </div>
+
+<style>
+	#smalltitle {
+		text-align: center;
+	}
+</style>
