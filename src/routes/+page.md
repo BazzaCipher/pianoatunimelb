@@ -24,7 +24,6 @@ description: "Explore all the pianos on the University of Melbourne campus for p
     <div id="map-container">
         <Map {posts}/>
     </div>
-    <div id="post-container">
 	<div class="container {dynamicClass}" id="checkedinlineelement">
         {#each $paginatedPosts as post}
           <PostItem {post} />
@@ -32,7 +31,6 @@ description: "Explore all the pianos on the University of Melbourne campus for p
 
         <Pagination items={posts} itemsPerPage={20} />
     </div>
-	</div>
 </div>
 
 <style>
@@ -59,12 +57,15 @@ description: "Explore all the pianos on the University of Melbourne campus for p
   @media screen and (max-aspect-ratio: 1/1.25) {
     #map-container {
       width: 100vw;
-	  aspect-ratio: 16 / 9;
+      height: 100vw;
+	  aspect-ratio: 1 / 3;
+      margin: 0;
 
 	  border: 10em 0 5em 0;
 	  display: inline;
 	}
 	.container {
+      width: 100vw;
 	  margin: 0 auto;
 	}
   }

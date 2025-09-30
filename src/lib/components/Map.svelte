@@ -126,7 +126,7 @@
   @media only screen and (max-aspect-ratio: 1/1.25) {
 	#map {
 	  position: relative;
-	  aspect-ratio: 16 / 9;
+	  aspect-ratio: 1;
 	  box-shadow: none;
 	  border: none;
 	  top: unset;
