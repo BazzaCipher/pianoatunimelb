@@ -7,10 +7,10 @@ export const menu = [
     title: "Categories",
     url: "/categories",
   },
-  // {
-  //   title: "About",
-  //   url: "/about",
-  // },
+  {
+    title: "About",
+    url: "/about",
+  },
   {
     title: "Contact",
     url: "/contact",

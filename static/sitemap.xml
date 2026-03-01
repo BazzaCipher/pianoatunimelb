@@ -23,6 +23,11 @@
   <priority>0.80</priority>
 </url>
 <url>
+  <loc>https://piano.bazza.space/about</loc>
+  <lastmod>2025-04-26T12:27:06Z+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
   <loc>https://piano.bazza.space/posts/artswest</loc>
   <lastmod>2024-12-20T07:44:02+00:00</lastmod>
   <priority>0.80</priority>
@@ -40,6 +45,11 @@
 <url>
   <loc>https://piano.bazza.space/posts/biosciences4</loc>
   <lastmod>2024-12-20T07:44:02+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://piano.bazza.space/posts/trinitycollege</loc>
+  <lastmod>2026-03-01T18:57:02+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
@@ -112,6 +122,4 @@
   <lastmod>2024-12-20T07:44:02+00:00</lastmod>
   <priority>0.80</priority>
 </url>
-
-
 </urlset>
