@@ -10,7 +10,7 @@ categories:
 date: 01/03/2026
 location: trinity college auditorium & practice rooms
 floor: 0
-coordinates: -37.79603609056112, 144.95955189220007
+coordinates: -37.79603609056112 144.95955189220007
 thumbnail: 
 images:
 ---
