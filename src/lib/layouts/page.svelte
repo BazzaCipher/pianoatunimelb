@@ -3,15 +3,17 @@
   import { siteTitle } from "$lib/constants";
   export let title, description;
   const seo = {
-    title: `${title} | ${siteTitle}`,
+    title: title ? `${title} | ${siteTitle}` : siteTitle,
     description,
 	canonical: 'https://piano.bazza.space'
   };
 </script>
 
 <Seo {...seo} />
+{#if title}
 <h3 id="smalltitle">{title}</h3>
 <hr>
+{/if}
 <div>
 	<slot />
 </div>
