@@ -6,3 +6,6 @@ Building outlines come from UoM Open Spatial Data via `src/routes/api/buildings.
 (refreshed daily; `src/lib/data/buildings.json` is the bundled fallback).
 
 Colours and fonts are tokens at the top of `src/lib/css/global.css`.
+
+## Deploy (rauf)
+`sudo bash deploy.sh` builds `me/pianos:latest` into k3s containerd and restarts the pod.
