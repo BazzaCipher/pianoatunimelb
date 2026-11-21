@@ -1,8 +1,8 @@
 ## To modify
-Check `src/lib/routes/posts` for pianos
+Pianos live in `src/routes/posts/<slug>/+page.md` (frontmatter: categories, location, floor, `coordinates: lat lng`).
+Pins use the coordinates; without them, the title is matched to a campus building.
 
-Check `src/lib/building_layers` for GeoJSON layers
+Building outlines come from UoM Open Spatial Data via `src/routes/api/buildings.json/+server.js`
+(refreshed daily; `src/lib/data/buildings.json` is the bundled fallback).
 
-In the future maybe have the other campuses, otherwise change hardcoded file in the Map component...
-
-TODO: Leaflet map SSR
+Colours and fonts are tokens at the top of `src/lib/css/global.css`.

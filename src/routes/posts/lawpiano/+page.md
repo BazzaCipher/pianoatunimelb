@@ -10,7 +10,7 @@ location: law building
 floor: 0
 coordinates: -37.80225491408594 144.9600723629226
 thumbnail: 
-images: photo.jpg photo.jpg
+images:
 ---
 
 Nice piano in the law building
