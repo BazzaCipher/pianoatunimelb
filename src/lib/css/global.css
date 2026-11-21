@@ -4,163 +4,204 @@
 @import url(./syntax-highlight.css);
 
 :root {
-  --bg-color: #fff;
-  --bg-light: #f1f1f1;
-  --brand-color: #333;
-  --text-color: #555;
-  --headers-color: #333;
-  --text-light: #bbb;
-  --sidebar-bg: #2d2d2d;
-  --duration-300: 300ms;
-  --image-filter: brightness(1);
+  /* Palette: coolors.co/e0e6db-d3e7b1-98825d-815355-523249 */
+  --paper: #f2f4ef;
+  --paper-2: #d3e7b1;
+  --card: #fcfdfa;
+  --ink: #2b1a26;
+  --ink-soft: #64505a;
+  --line: #dbe1d5;
+  --accent: #523249;
+  --accent-2: #98825d;
+  --grand: #523249;
+  --grand-icon: invert(1);
+  --grand-fg: #ffffff;
+  --upright-fg: #ffffff;
+  --upright: #98825d;
+  --upright-icon: invert(1);
+  --pin-ring: #ffffff;
+  --campus: #4f7a35;
+  --campus-line: #34561f;
+  --map-bg: #e0e6db;
+  --hover-bg: #d3e7b1;
+  --hover-fg: #2b1a26;
+  --ivory: #ffffff;
+  --ebony: #523249;
+  --card-hot: #eef5e1;
+  --glass: rgb(252 253 250 / 0.72);
+  --chip: #d3e7b1;
+  --chip-hot: #c3db9b;
+  --press: #3d2436;
+  --radius: 18px;
+  --header-h: 60px;
+  --script: "Great Vibes", cursive;
+  --serif: "Cormorant Garamond", Garamond, Georgia, serif;
+  --body: "Lora", Georgia, serif;
+  color-scheme: light dark;
 }
 
-:root[data-theme="dark"] {
-  --bg-color: #112042;
-  --bg-light: #2b4173;
-  --brand-color: #3f83ba;
-  --text-color: #787878;
-  --headers-color: #a7a7a7;
-  --text-light: #26407c;
-  --sidebar-bg: #030b1d;
-  --image-filter: brightness(0.7);
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #1c1118;
+    --paper-2: #3a2533;
+    --card: #251720;
+    --ink: #eef1ea;
+    --ink-soft: #c3b6a2;
+    --line: #3d2a37;
+    --accent: #d3e7b1;
+    --accent-2: #98825d;
+    --ivory: #e0e6db;
+    --ebony: #815355;
+    --grand: #d3e7b1;
+    --grand-icon: none;
+    --grand-fg: #2b1a26;
+      --pin-ring: #e0e6db;
+    --campus: #6f8f52;
+    --campus-line: #a8c587;
+    --map-bg: #1c1118;
+    --card-hot: #33212d;
+    --glass: rgb(37 23 32 / 0.74);
+      --chip: #3a2533;
+    --chip-hot: #4a2f41;
+    --press: #6b4446;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  /* Cormorant/Lora default to old-style digits ("Building 243" dips); the font shorthand resets inheritance */
+  font-variant-numeric: lining-nums;
 }
 
 body {
   margin: 0;
-  font-family: "Poppins", sans-serif;
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--paper);
+  min-height: 100dvh;
   text-rendering: optimizeLegibility;
-  font-weight: 400;
-  font-size: 20px;
+  -webkit-font-smoothing: antialiased;
   -webkit-text-size-adjust: 100%;
-  -ms-text-size-adjust: 100%;
-  background-color: var(--bg-color);
-  word-spacing: 3px;
-  line-height: 1.8;
 }
 
 p {
-  color: var(--text-color);
-  font-size: 20px;
-  margin-bottom: 1.2rem;
+  margin-bottom: 1rem;
 }
 
 h1,
 h2,
 h3,
-h4,
-h5,
-h6 {
-  margin-top: 1rem;
-  color: var(--headers-color);
-}
-
-h1 {
-  font-size: 3rem;
-}
-
-h2 {
-  font-size: 2.5rem;
-}
-
-h3 {
-  font-size: 2rem;
-}
-
 h4 {
-  font-size: 1.6rem;
+  font-family: var(--serif);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin: 1.5rem 0 0.75rem;
 }
 
-h5 {
-  font-size: 1.4rem;
-}
-
-h6 {
-  font-size: 1rem;
-}
+h1 { font-size: clamp(2rem, 5vw, 3rem); }
+h2 { font-size: 1.6rem; }
+h3 { font-size: 1.3rem; }
+h4 { font-size: 1.1rem; }
 
 a {
-  text-decoration: underline;
-  color: var(--brand-color);
-  transition-duration: var(--duration-300);
+  color: var(--accent);
+  text-underline-offset: 3px;
 }
 
 a:hover {
-  color: var(--text-color);
+  color: var(--ink);
+}
+
+:focus-visible {
+  outline: 3px solid var(--accent-2);
+  outline-offset: 2px;
 }
 
 img {
   max-width: 100%;
-  filter: var(--image-filter);
 }
 
-button {
-  display: inline-block;
-  outline: 0;
+/* Piano-key icons are black line art; flip them in dark mode */
+@media (prefers-color-scheme: dark) {
+  .key-icon { filter: invert(1); }
+}
+
+button,
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
   cursor: pointer;
-  border: 1px solid #1d1c1d4d;
-  font-weight: 700;
-  background: #fff;
-  padding: 0 12px 1px;
-  font-size: 15px;
-  border-radius: 4px;
-  color: rgb(29, 28, 29);
-  height: 36px;
-  transition: all 80ms linear;
+  font: 600 0.95rem var(--body);
+  font-variant-numeric: lining-nums;
+  color: var(--ivory);
+  background: var(--ebony);
+  border: 0;
+  border-radius: 999px;
+  padding: 0.6rem 1.2rem;
+  text-decoration: none;
 }
 
-button:hover {
-  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 8%);
-  background: rgba(248, 248, 248, 1);
+button:hover,
+.button:hover {
+  color: var(--hover-fg);
+  background: var(--hover-bg);
 }
 
-ul,
-ol,
-dl,
-table,
-pre {
-  color: var(--text-color);
+button:active,
+.button:active {
+  color: var(--ivory);
+  background: var(--press);
 }
-
-main,
-.sidebar {
-  transition-duration: 500ms;
-}
-
-pre {
-  white-space: pre-line;
-}
-
 
 hr {
-  position: relative;
-  margin: 1.5rem 0;
+  margin: 2rem 0;
   border: 0;
-  border-top: 1px solid #eee;
-  border-bottom: 1px solid #fff;
+  border-top: 1px solid var(--line);
 }
 
 .container {
-  max-width: 45rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  margin-left: auto;
-  margin-right: auto;
+  max-width: 46rem;
+  padding: 0 1rem;
+  margin: 0 auto;
 }
 
-.show {
-  transform: translateX(18rem);
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
 }
 
-@media screen and (max-width: 800px) {
+/* Fine paper grain over the whole page so no colour field is perfectly flat */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
 
-  body,
-  p {
-    font-size: 18px;
-    line-height: 1.6;
-  }
+.chip {
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  background: var(--chip);
+  color: var(--ink-soft);
+  text-decoration: none;
+  text-transform: capitalize;
+}
 
-  .show {
-    transform: translateX(16rem);
-  }
+.chip.sus {
+  background: transparent;
+  border: 1px dashed var(--ink-soft);
 }

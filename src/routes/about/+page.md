@@ -12,7 +12,5 @@ Whether you're sneaking in a quick practice or just want to enjoy a spot of musi
 our interactive map shows all the pianos we know of, with a quick summary of what
 makes each one unique. Built by students, for students (and anyone who loves a good piano break).
 
-<a target="_blank" href="https://github.com/BazzaCipher/pianoatunimelb">
-<button>⭐Star this project⭐</button>
-</a>
+<a class="button" target="_blank" rel="noopener" href="https://github.com/BazzaCipher/pianoatunimelb">⭐ Star this project</a>
 

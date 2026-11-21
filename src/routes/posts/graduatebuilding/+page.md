@@ -4,11 +4,11 @@ title: graduate building
 description:
 categories:
   - parkville
-  - upright
+  - grand
 date: 15/10/2024
-location: graduate building, ...
+location: 1888 building (graduate centre)
 floor: 1
-coordinates: 
+coordinates: -37.799788 144.963192
 thumbnail: 
 images:
 ---

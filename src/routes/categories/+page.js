@@ -1,19 +1,10 @@
 export const load = async ({ parent }) => {
   const { posts } = await parent();
-
-  // https://dmitripavlutin.com/javascript-array-group/
-  const groupByCategory = posts.reduce((group, post) => {
-    const { categories } = post;
-    for (let category of categories) {
-      group[category] = group[category] ?? [];
-      group[category].push(post);
-    }
-    return group;
-  }, {});
-
-  const groupedPosts = Object.entries(groupByCategory);
+  const counts = {};
+  for (const post of posts) for (const c of post.categories) counts[c] = (counts[c] ?? 0) + 1;
 
   return {
-    groupedPosts,
+    posts,
+    categories: Object.entries(counts).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])),
   };
 };

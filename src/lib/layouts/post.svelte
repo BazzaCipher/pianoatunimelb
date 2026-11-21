@@ -2,89 +2,116 @@
   import Seo from "$lib/components/Seo.svelte";
   import Categories from "$lib/components/Categories.svelte";
   import { siteTitle } from "$lib/constants";
-  import { Gallery } from 'flowbite-svelte';
 
-  export let data;
-  export let title, location, floor, coordinates, date, categories, thumbnail, images;
+  export let title, location, floor, date, categories, thumbnail, images;
 
-let imagesobjects = []
-  if (images) {
-	let imagesobjects = images.toString().split(" ")
-	imagesobjects = imagesobjects.map(img => { return{src: `../images/${img}`}});
-  }
+  const gallery = images ? images.toString().split(" ").map((img) => `/images/${img}`) : [];
 
   const seo = {
     title: `${title ?? location} | ${siteTitle}`,
     description: `A piano can be found for Unimelb at ${location}`,
     thumbnail,
   };
-
-  $: recentPosts = data.posts;
 </script>
 
 <Seo {...seo} />
 
-<h1>{title??location}</h1>
-<div><p class="date">Last checked: {date}</p><p class="location">{location} | Level {floor ?? "?"}</p></div>
-<Categories {categories} />
+<a class="back" href="/">← Back to the map</a>
+
+<header class="post-head">
+  <h1>{title ?? location}</h1>
+  <dl class="meta">
+    <div><dt>Where</dt><dd>{location}</dd></div>
+    <div><dt>Level</dt><dd>{floor ?? "?"}</dd></div>
+    <div><dt>Last checked</dt><dd>{date}</dd></div>
+  </dl>
+  <Categories {categories} />
+</header>
+
+{#if thumbnail}<img class="hero" src="/{thumbnail}" alt="{title ?? location}" />{/if}
+
 <article>
   <slot />
 </article>
-<Gallery items={imagesobjects}/>
-<hr>
-<p class="edit"><a href="/contact" target="_blank">Suggest a change</a></p>
+
+{#if gallery.length}
+  <div class="gallery">
+    {#each gallery as src}
+      <!-- svelte-ignore a11y-missing-attribute -->
+      <img {src} loading="lazy" on:error={(e) => e.currentTarget.remove()} />
+    {/each}
+  </div>
+{/if}
+
+<p class="edit"><a class="button" href="/contact">Suggest a change</a></p>
 
 <style>
-  .largegallery {
-	margin: 0 -20vw;
+  .back {
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
   }
-  .date {
-    color: var(--text-color);
-    opacity: 0.8;
-    margin-bottom: 0.5rem;
+
+  .post-head {
+    margin: 1rem 0 1.5rem;
+    padding: 1.5rem;
+    border-radius: var(--radius);
+    background: var(--card);
+    border: 1px solid var(--line);
   }
-  .edit {
-    display: flex;
-  }
-  .edit a {
-    margin-left: auto;
-  }
-  img {
-    object-fit: cover;
-    object-position: center;
-  }
-  p {
-	margin: 0px;
-    font-size: 1rem;
-  }
-  div {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-  }
-  .location {
-	text-align: right;
-	text-transform: capitalize;
-	font-weight: bold;
-  }
-  .gallery {
-	margin: -20% !important;
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-  }
+
   h1 {
-	  text-transform: capitalize;
+    margin-top: 0;
+    text-transform: capitalize;
   }
 
-  @media screen and (max-width: 800px) {
-    h1 {
-      font-size: 2rem;
-    }
-    img {
-      height: 200px;
-      object-fit: contain;
-      object-position: center;
-    }
+  .meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+    gap: 0.75rem;
+    margin: 0 0 1rem;
   }
 
+  dt {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+
+  dd {
+    text-transform: capitalize;
+    font-weight: 600;
+  }
+
+  article :global(h1) {
+    font-size: 1.6rem;
+  }
+
+  .hero {
+    width: 100%;
+    max-height: 420px;
+    object-fit: cover;
+    border-radius: var(--radius);
+    margin-bottom: 1.5rem;
+  }
+
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .gallery img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+
+  .edit {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line);
+    text-align: right;
+  }
 </style>

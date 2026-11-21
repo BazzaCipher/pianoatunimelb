@@ -11,15 +11,6 @@
 
 <Seo {...seo} />
 {#if title}
-<h3 id="smalltitle">{title}</h3>
-<hr>
+<h1>{title}</h1>
 {/if}
-<div>
-	<slot />
-</div>
-
-<style>
-	#smalltitle {
-		text-align: center;
-	}
-</style>
+<slot />

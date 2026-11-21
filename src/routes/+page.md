@@ -4,68 +4,165 @@ description: "Explore all the pianos on the University of Melbourne campus for p
 ---
 
 <script>
-  import { page } from "$app/stores"
   import PostItem from "$lib/components/PostItem.svelte";
-  import Pagination from "$lib/components/Pagination/Pagination.svelte";
-  import { paginatedPosts } from "$lib/components/Pagination/paginatedPosts";
-  import Seo from "$lib/components/Seo.svelte";
   import Map from "$lib/components/Map.svelte";
-  import { siteTitle, siteDescription } from "$lib/constants";
-  
+
   export let data;
 
   $: ({ posts } = data);
-  $: dynamicClass = $page.url.pathname == "/" ? 'displayInline': '';
+
+  // Key doubles as a filter: pick one type at a time; click it again to show everything
+  let picked = null;
+  const keys = [
+    { id: "grand", label: "Grand" },
+    { id: "upright", label: "Upright" },
+    { id: "sus", label: "Unconfirmed" },
+  ];
+  const pick = (id) => (picked = picked === id ? null : id);
+  const isGrand = (p) => p.categories.includes("grand");
+  // Pins without either tag are drawn as uprights, so count them as uprights here too
+  const test = {
+    grand: isGrand,
+    upright: (p) => p.categories.includes("upright") || !isGrand(p),
+    sus: (p) => p.categories.includes("sus"),
+  };
+  $: shownPosts = picked ? posts.filter(test[picked]) : posts;
+  $: shown = new Set(shownPosts.map((p) => p.slug));
+
+  // List <-> map hover link: hovering either side lights up the other
+  let hovered = null;
+  let panelWidth = 0;
+  function fromMap(slug) {
+    hovered = slug;
+    // Scroll the list to the piano when the list is its own scroll box (desktop)
+    if (slug && matchMedia("(min-width: 761px)").matches) {
+      document.getElementById(`piano-${slug}`)?.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    }
+  }
 </script>
 
-
-<div id="map-content-container">
-    <div id="map-container">
-        <Map {posts}/>
+<div class="home">
+  <div class="map-wrap">
+    <Map {posts} {shown} {hovered} onhover={fromMap} {panelWidth} />
+  </div>
+  <aside class="panel" bind:clientWidth={panelWidth}>
+    <div class="key" role="group" aria-label="Show only">
+      {#each keys as k}
+        <button class="k-{k.id}" aria-pressed={picked === k.id} on:click={() => pick(k.id)}>{k.label}</button>
+      {/each}
     </div>
-	<div class="container {dynamicClass}" id="checkedinlineelement">
-        {#each $paginatedPosts as post}
-          <PostItem {post} />
-        {/each}
-
-        <Pagination items={posts} itemsPerPage={20} />
-    </div>
+    <ul class="list">
+      {#each shownPosts as post (post.slug)}
+        <li>
+          <PostItem
+            {post}
+            active={hovered === post.slug}
+            on:mouseenter={() => (hovered = post.slug)}
+            on:mouseleave={() => (hovered = null)}
+            on:focus={() => (hovered = post.slug)}
+            on:blur={() => (hovered = null)} />
+        </li>
+      {/each}
+    </ul>
+  </aside>
 </div>
 
 <style>
-  #map-container {
-    top: 0;
-	vertical-align: top;
-
-	margin: 10em 3em;
-
-	width: 400px;
-	height: 80%;
-	display: inline-block;
+  .home {
+    position: relative;
+    height: calc(100dvh - var(--header-h));
   }
 
-  #map-content-container {
-	display: flex;
-  }
-
-  .container {
-    margin: 2rem auto;
+  .map-wrap {
+    position: absolute;
+    inset: 0;
   }
 
 
-  @media screen and (max-aspect-ratio: 1/1.25) {
-    #map-container {
-      width: 100vw;
-      height: 100vw;
-	  aspect-ratio: 1 / 3;
-      margin: 0;
+  .panel {
+    position: absolute;
+    z-index: 500;
+    top: 1rem;
+    left: 1rem;
+    bottom: 1rem;
+    width: min(400px, 42vw);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    padding: 1.5rem 1.25rem;
+    background: var(--glass);
+    backdrop-filter: blur(16px) saturate(1.3);
+    -webkit-backdrop-filter: blur(16px) saturate(1.3);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
 
-	  border: 10em 0 5em 0;
-	  display: inline;
-	}
-	.container {
-      width: 100vw;
-	  margin: 0 auto;
-	}
+
+
+  /* Three equal rounded squares. Outline = off, filled = the one type being shown */
+  .key {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .key button {
+    justify-content: center;
+    padding: 0.7rem 0.2rem;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    color: var(--c);
+    background: var(--card);
+    border: 2px solid var(--c);
+  }
+
+  .k-grand { --c: var(--grand); --fg: var(--grand-fg); }
+  .k-upright { --c: var(--upright); --fg: var(--upright-fg); }
+  .k-sus { --c: var(--ink); --fg: var(--card); }
+
+  .key .k-sus {
+    border-style: dashed;
+  }
+
+  .key button:hover {
+    color: var(--c);
+    background: color-mix(in srgb, var(--c) 12%, var(--card));
+  }
+
+  .key button[aria-pressed="true"] {
+    color: var(--fg);
+    background: var(--c);
+  }
+
+  .key button:active {
+    color: var(--fg);
+    background: var(--c);
+  }
+
+  /* Filled unconfirmed: dashes in the panel colour show as gaps in the fill edge */
+  .key .k-sus[aria-pressed="true"] {
+    border-color: var(--card);
+  }
+
+  .list {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  /* Phone: map on top, list as a sheet sliding over its bottom edge */
+  @media (max-width: 760px) {
+    .home { height: auto; }
+    .map-wrap { position: relative; height: 58dvh; }
+    .panel {
+      position: relative;
+      inset: auto;
+      width: auto;
+      margin-top: 0;
+      overflow: visible;
+      border-radius: var(--radius) var(--radius) 0 0;
+      padding: 1rem 1rem 2rem;
+    }
   }
 </style>

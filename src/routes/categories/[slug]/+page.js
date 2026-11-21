@@ -1,13 +1,6 @@
-export const load = async ({ parent, params }) => {
-  const { slug } = params;
-  const { posts } = await parent();
-  const title = slug;
-  const filteredPosts = posts.filter((post) => {
-    return post.categories.includes(slug);
-  });
+import { redirect } from "@sveltejs/kit";
 
-  return {
-    posts: filteredPosts,
-    title,
-  };
+// Old per-category pages now live as a filter on /categories
+export const load = ({ params }) => {
+  redirect(308, `/categories?c=${encodeURIComponent(params.slug)}`);
 };
