@@ -8,4 +8,5 @@ Building outlines come from UoM Open Spatial Data via `src/routes/api/buildings.
 Colours and fonts are tokens at the top of `src/lib/css/global.css`.
 
 ## Deploy (rauf)
-`sudo bash deploy.sh` builds `me/pianos:latest` into k3s containerd and restarts the pod.
+`bash deploy.sh`: rebuilds `build/` and restarts the pod. The pod (manifest in
+`~/k3s-migration/manifests/pianoatunimelb.yaml`) runs stock `node:22-alpine` against this folder, so there is no image to build.
