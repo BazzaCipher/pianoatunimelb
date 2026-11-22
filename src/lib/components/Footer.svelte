@@ -4,7 +4,7 @@
 </script>
 
 <footer>
-  <p class="container">© {year}. {footerText}</p>
+  <p class="container">© {year}. {footerText} Built by <a href="https://www.barrymeng.com">Barry</a>.</p>
 </footer>
 
 <style>
